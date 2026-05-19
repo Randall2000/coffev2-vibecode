@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Calistoga:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #171717;
+  --color-accent: #A16207;
+  --color-accent-light: #FEF3C7;
+  --color-bg: #FFFFFF;
+  --color-surface: #FAFAF9;
+  --color-muted: #E8ECF0;
+  --color-muted-text: #78716C;
+  --font-heading: 'Calistoga', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #FFFFFF;
+  overscroll-behavior: contain;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 640px) {
+  body {
+    background: #F5EFE0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #root {
+    width: 390px;
+    height: min(844px, calc(100dvh - 48px));
+    border-radius: 44px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.06);
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    background: #FFFFFF;
+  }
+}
+
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
