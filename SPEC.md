@@ -82,20 +82,31 @@
 
 ### Screen 3：味道回饋（FeedbackScreen）
 
-**功能**
-- 標題：「這杯喝起來？」
-- 四個大按鈕，**可複選**
-- 儲存 → 寫 log → 回 Screen 1
-- 「不記了」→ 不儲存，直接回 Screen 1
+三層 Progressive Disclosure，越往下越細，每層獨立完成。
 
-**四個選項**
+**Layer 1｜風味強度（畫面主體）**
 
-| ID | Emoji | 說明文字 | 診斷意義 |
-|----|-------|---------|---------|
-| 酸 | 🍋 | 刺激感、像咬青蘋果 | 萃取不足 |
-| 甜 | 🍯 | 圓潤、尾韻甘甜 | 接近理想 |
-| 苦 | 🫖 | 喝完嘴有點澀 | 萃取過度 |
-| 淡 | 💧 | 味道偏薄、無存在感 | 萃取不足＋濃度低 |
+四個維度，每個可選「低 / 中 / 高」，點一下選，再點取消。未選 = 沒有感受到。
+
+| 維度 | 說明 | 診斷意義 |
+|------|------|---------|
+| 酸感 | 果酸、刺激感 | 萃取不足 |
+| 甜感 | 圓潤、尾韻甘 | 接近理想 |
+| 苦味 | 焦感、口腔澀 | 萃取過度 |
+| 醇厚 | 飽滿、重量感 | 濃度指標 |
+
+**Layer 2｜整體評分**
+- 1–5 顆星，點選，可反選歸零
+
+**Layer 3｜沖煮參數（預設收合，展開才顯示）**
+- 研磨刻度（文字，e.g. 24、C40-26）
+- 水溫（數字，°C）
+- 水流速度（太快 / 剛好 / 堵塞）
+- 備註（多行文字）
+
+**儲存行為**
+- 「儲存這杯紀錄」→ 寫 log → 回 Screen 1
+- 「不記了」→ 不儲存，回 Screen 1
 
 ---
 
@@ -123,14 +134,24 @@
   waterTotal: number,
   ratio: number,
   recipeName: string,
-  time: number,         // 實際沖煮秒數
-  taste: string[],      // ['酸', '甜', '苦', '淡'] 的子集
+  time: number,              // 實際沖煮秒數
+  taste: {
+    acidity:    0|1|2|3,    // 0=未選, 1=低, 2=中, 3=高
+    sweetness:  0|1|2|3,
+    bitterness: 0|1|2|3,
+    body:       0|1|2|3,
+  },
+  rating: number,            // 0–5 顆星（0 = 未評）
+  grindSetting: string|null, // e.g. '24', 'C40-26'
+  waterTemp: number|null,    // °C
+  flowRate: 'fast'|'good'|'clog'|null,
+  notes: string|null,
   stepTimes: [{
     name: string,
-    planned: number,    // 秒
-    actual: number,     // 秒
+    planned: number,         // 秒
+    actual: number,          // 秒
   }],
-  createdAt: number,    // timestamp
+  createdAt: number,         // timestamp
 }]
 ```
 
